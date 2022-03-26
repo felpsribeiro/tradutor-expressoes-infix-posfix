@@ -1,0 +1,21 @@
+math
+{ 
+    int x;
+    int val;
+    x + val;
+    2+(3-5);
+    { 
+        float x; /* outro x */
+        2 – 3.5 + x;
+    } 
+    x;
+}
+
+/* saída esperada:
+*
+*   (x:int)(val:int)+
+*   (2)(3)(5)-+
+*   (2)(3.5)-(x:float)+
+*   (x:int)
+*
+*/

@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+
+# ----------------------------
+
+# Configurações VS Code
+.vscode
+
+# Arquivos de depuração e compilação
+Debug/*
+Release/*
