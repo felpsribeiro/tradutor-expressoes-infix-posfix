@@ -92,18 +92,19 @@ Tabela de Símbolos | symtable.cpp | tabela hash que armazena palavras reservada
 Gerenciador de Erros | error.cpp | gerência os erros
 ------------
 ## Como utilizar
-1. Instale o compilador g++, o depurador gdb, o o sistema de automação da compilação make e cmake, com
+1. Instale o compilador g++, o depurador gdb, o o sistema de automação da compilação make e cmake
 ~~~shell
 $ sudo apt update
 $ sudo apt upgrade
 $ sudo apt install g++ gdb make cmake
 ~~~
-2. Clone esse repositorio em sua máquina;
+2. Clone este repositorio em sua máquina;
 
 ### para versão Release...
 
 3. Abra o projeto no Bash e rode o CMake para gerar o Makefile dentro da pasta Release, digitando
 ~~~shell
+$ mkdir Release
 $ cd Release/
 /Release$ cmake ../ -DCMAKE_BUILD_TYPE=Release
 ~~~
@@ -120,6 +121,7 @@ $ cd Release/
 
 3. Abra o projeto no Bash e rode o CMake para gerar o Makefile dentro da pasta Dedug, digitando
 ~~~shell
+$ mkdir Debug
 $ cd Debug/
 /Debug$ cmake ../ -DCMAKE_BUILD_TYPE=Debug
 ~~~
