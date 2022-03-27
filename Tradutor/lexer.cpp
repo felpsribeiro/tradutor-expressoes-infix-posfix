@@ -1,6 +1,7 @@
 #include "lexer.h"
 #include <fstream>
 #include <sstream>
+#include <math.h>
 using std::stringstream;
 
 extern std::ifstream fin;
@@ -89,34 +90,39 @@ Token *Lexer::Scan()
 	// retorna números
 	if (isdigit(peek))
 	{
-		int v = 0;
-		int d = 0;
+		int acumulado = 0;
+		int casasDecimas = 0;
+		bool flagDecimas = false;
 
 		do
 		{
 			// converte caractere 'n' para o dígito numérico n
 			int n = peek - '0';
 
-			v = 10 * v + n;
-			if (d != 0) 
-				++d;
+			acumulado = 10 * acumulado + n;
+			if (flagDecimas) 
+				++casasDecimas;
 
 			peek = fin.get();
-			if (peek == '.' && d == 0)
-				++d;
+			if (peek == '.' && !flagDecimas)
+			{
+				flagDecimas = true;
+				peek = fin.get();
+			}
 		} while (isdigit(peek));
 
 		// retorna o token NUM float
-		if (d != 0)
-		{
-			v /= d * 10;
-			token.n = Num{v};
+		if (flagDecimas) {
+			token.real = Float{(float)(acumulado / pow(10, casasDecimas))};
+			return &token.real;
 		}
+
 		// retorna o token NUM int
 		else
-			token.n = Num{v};
-		
-		return &token.n;
+		{
+			token.inteiro = Int{acumulado};
+			return &token.inteiro;
+		}
 	}
 
 	// retorna palavras-chave e identificadores
@@ -136,8 +142,8 @@ Token *Lexer::Scan()
 		if (pos != id_table.end())
 		{
 			// retorna o token associado
-			token.i = pos->second;
-			return &token.i;
+			token.word = pos->second;
+			return &token.word;
 		}
 
 		// se o lexema ainda não está na tabela
@@ -145,8 +151,8 @@ Token *Lexer::Scan()
 		id_table[s] = new_id;
 
 		// retorna o token ID
-		token.i = new_id;
-		return &token.i;
+		token.word = new_id;
+		return &token.word;
 	}
 
 	// operadores (e caracteres não alphanuméricos isolados)
@@ -154,6 +160,6 @@ Token *Lexer::Scan()
 	peek = ' ';
 
 	// retorna o token
-	token.t = op;
-	return &token.t;
+	token.simbolo = op;
+	return &token.simbolo;
 }
