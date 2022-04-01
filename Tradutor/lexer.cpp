@@ -12,6 +12,7 @@ Lexer::Lexer()
 	// insere palavras-reservadas na tabela de id's
 	id_table["int"] = Id{Tag::TYPE, "int"};
 	id_table["float"] = Id{Tag::TYPE, "float"};
+	id_table["math"] = Id{Tag::FUNC_INI, "math"};
 
 	// inicia leitura da entrada
 	peek = fin.get();

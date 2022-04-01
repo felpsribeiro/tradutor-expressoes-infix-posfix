@@ -39,16 +39,16 @@ stmts   ::= stmt stmts
 stmt    ::= block
           | expr
 
-expr    ::= term paexpr
+expr    ::= term opexpr
 
-paexpr  ::= + term paexpr {print('+');}
-          | – term paexpr {print('-');}
+opexpr  ::= + term opexpr {print('+');}
+          | – term opexpr {print('-');}
           | NULL
 
-term    ::= factor paterm
+term    ::= factor opterm
 
-paterm  ::= * factor {print('*');}
-          | / factor {print('/');}
+opterm  ::= * factor opterm {print('*');}
+          | / factor opterm {print('/');}
           | NULL
 
 factor  ::= (expr)

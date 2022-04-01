@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include "lexer.h"
+#include "parser.h"
 #include "error.h"
 using namespace std;
 
@@ -22,17 +22,10 @@ int main(int argc, char **argv)
 			exit(EXIT_FAILURE);
 		}
 
-		Lexer tradutor;
+		Parser tradutor;
 		try
 		{
-			Token *token;
-			while (true)
-			{
-				token = tradutor.Scan();
-				if (token->tag == EOF)
-					break;
-				cout << token->toString() << ' ';
-			}
+			tradutor.Start();
 		}
 		catch (SyntaxError err)
 		{

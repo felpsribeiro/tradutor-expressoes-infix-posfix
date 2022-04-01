@@ -10,6 +10,7 @@ using std::string;
 enum Tag
 {
 	TYPE = 256,
+	FUNC_INI,
 	NUM,
 	ID
 };
@@ -23,9 +24,7 @@ struct Token
 	virtual string toString()
 	{
 		stringstream ss;
-		ss << '<';
 		ss << char(tag);
-		ss << '>';
 		return ss.str();
 	}
 };
@@ -43,9 +42,7 @@ struct Int : public Num
 	virtual string toString()
 	{
 		stringstream ss;
-		ss << '<';
 		ss << value;
-		ss << '>';
 		return ss.str();
 	}
 };
@@ -58,9 +55,7 @@ struct Float : public Num
 	virtual string toString()
 	{
 		stringstream ss;
-		ss << '<';
 		ss << value;
-		ss << '>';
 		return ss.str();
 	}
 };
@@ -70,14 +65,7 @@ struct Id : public Token
 	string name;
 	Id() : Token(Tag::ID) {}
 	Id(int t, string s) : Token(t), name(s) {}
-	virtual string toString()
-	{
-		stringstream ss;
-		ss << '<';
-		ss << name;
-		ss << '>';
-		return ss.str();
-	}
+	virtual string toString() { return name; }
 };
 
 // analisador léxico
