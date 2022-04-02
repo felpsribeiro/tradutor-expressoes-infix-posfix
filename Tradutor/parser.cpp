@@ -100,6 +100,7 @@ void Parser::Stmts()
             Block();
             break;
         // stmt -> expr;
+        case '(':
         case Tag::NUM:
         case Tag::ID:
             Expr();

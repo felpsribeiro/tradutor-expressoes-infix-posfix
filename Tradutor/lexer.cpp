@@ -40,14 +40,12 @@ void Lexer::Clean()
 			{
 				peek = fin.get();
 				while (peek != '\n' && peek != EOF)
-				{
-					// se achar o final do arquivo, encerra a função
-					if (peek == EOF)
-						return;
-					else if (peek == '\n')
-						line += 1;
 					peek = fin.get();
-				}
+				// se achar o final do arquivo, encerra a função
+				if (peek == EOF)
+					return;
+				else if (peek == '\n')
+					line += 1;
 			}
 
 			// comentários de mais de uma linha -> /* ..... */
@@ -58,27 +56,43 @@ void Lexer::Clean()
 				do
 				{
 					peek = fin.get();
-					// se achar o final do arquivo, encerra a função
-					if (peek == EOF)
-						return;
-						
-					else if (peek == '\n')
-						line += 1;						
 
-					else if (peek == '*')
+					switch (peek)
 					{
-						peek = fin.get();
-						if (peek == '/')
+					case '\n':
+						line += 1;
+						break;
+
+					// se achar o final do arquivo, encerra a função
+					case EOF:
+						return;
+
+					case '*':
+						nextPeek = fin.peek();
+						if (nextPeek == '/')
+						{
+							peek = fin.get();
 							flag = false;
+						}
+						break;
+
+					default:
+						break;
 					}
 				} while (flag);
 				peek = fin.get();
 			}
+			// '/' representa uma divisão
+			else return;
 		}
 
 		// salta espaços em branco, tabulações e novas linhas
-		else
+		if (isspace(peek))
+		{
+			if (peek == '\n')
+				line += 1;
 			peek = fin.get();
+		}
 	}
 }
 
