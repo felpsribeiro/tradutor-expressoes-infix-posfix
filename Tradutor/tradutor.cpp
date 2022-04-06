@@ -17,6 +17,7 @@ int main(int argc, char **argv)
 {
 	if (argc == 2)
 	{	
+		// --help ou --version
 		if (argv[1][0] == '-')
 		{
 			if (!strcmp(argv[1], "--help") || !strcmp(argv[1], "-H"))
@@ -26,6 +27,14 @@ int main(int argc, char **argv)
 				messageVersion();
 
 			else cout << "Comando inválido, use \"tradutor --help\" para descobrir os comandos válidos.\n";	
+			exit(EXIT_FAILURE);
+		}
+
+		// verifica se o arquivo tem formato ".math"
+		int tam = strlen(argv[1]);
+		if (strcmp(&argv[1][tam-5], ".math"))
+		{
+			cout << "O arquivo precisa ter a extensão \".math\".\n\n";
 			exit(EXIT_FAILURE);
 		}
 
