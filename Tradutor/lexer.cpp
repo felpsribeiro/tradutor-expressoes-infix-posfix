@@ -46,6 +46,7 @@ void Lexer::Clean()
 					return;
 				else if (peek == '\n')
 					line += 1;
+				peek = fin.get();
 			}
 
 			// comentários de mais de uma linha -> /* ..... */
